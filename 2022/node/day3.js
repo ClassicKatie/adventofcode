@@ -109,16 +109,37 @@ const priorities = buildPriorities();
 function readInput() {
 	// read data from a file
     //const fileStream = fs.createReadStream('data/day3.txt');
-	const elfSacksRaw = fs.readFileSync('data/day3.txt', 'utf8');
-	//const elfSacksRaw = testData;
+	//const elfSacksRaw = fs.readFileSync('data/day3.txt', 'utf8');
+	const elfSacksRaw = testData;
 
 	const elfSacks = elfSacksRaw.split('\n');
 
 	// part 1 solution
-	part1Solution(elfSacks);
+	findMismatchPriorityTotal(elfSacks);
+	findBadgePriorityTotal(elfSacks);
 }
 
-function part1Solution(elfSacks) {
+function findBadgePriorityTotal(elfSacks) {
+	let priorityScore = 0;
+
+	for (let i = 0; i < elfSacks.length - 2; i = i + 3) {
+		const firstElf = new Set(elfSacks[i].split(''));
+		const secondElf = new Set(elfSacks[i+1].split(''));
+		const thirdElf = new Set(elfSacks[i+2].split(''));
+
+		for (const item of firstElf) {
+			if (secondElf.has(item) && thirdElf.has(item)) {
+				// can assume only 1
+				priorityScore += priorities[item];
+				break;
+			}
+		}
+	}
+	console.log('Part 2 solution:');
+	console.log(priorityScore);
+}
+
+function findMismatchPriorityTotal(elfSacks) {
 	let priorityPoints = 0;
 	elfSacks.forEach(sack => {
 		if (sack.length === 0) {
@@ -132,6 +153,7 @@ function part1Solution(elfSacks) {
 
 		priorityPoints += priorities[sharedItem];
 	});
+	console.log('Part 1 solution:');
 	console.log(priorityPoints);
 }
 
