@@ -81,10 +81,10 @@
 
 const cowsay = require('cowsay');
 const fs = require('fs');
-const readline = require('readline');
 
 const testAssignmentsRaw = "2-4,6-8\n2-3,4-5\n5-7,7-9\n" +
 	                       "2-8,3-7\n6-6,4-6\n2-6,4-8";
+
 function findFullyContained(assignmentsRaw) {
 	const assignments = [];
 	let fullyContained = 0;
